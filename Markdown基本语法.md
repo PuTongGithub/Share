@@ -239,6 +239,13 @@ ____________
 
 
 
+# 十、额外内容
+
+1. markdown支持部分HTML标签，如`<kdb> <b> <i> <em> <sup> <sub> <br>`等。
+2. 如果在编写过程中需要使用到一些markdown符号，可以在这些符号前添加反斜杠（\）来避免符号转义。
+
+
+
 ###### 内容参考链接
 
 1. [Markdown 编辑器语法指南](https://segmentfault.com/markdown)
