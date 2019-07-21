@@ -23,6 +23,7 @@ java.lang.reflect.Constructor;
 java.lang.reflect.Field;
 java.lang.reflect.Method;
 java.lang.reflect.Modifier;
+java.lang.reflect.Array;
 ```
 
 #### Class类
@@ -136,11 +137,57 @@ Class.newInstance()
 
 一般来讲，我们优先使用第一种方法.
 
-注意：反射不支持自动封箱，传入参数时要小心（自动封箱是在编译期间的，而反射在运行期间）
+注意：反射不支持自动封箱，传入参数时要小心（自动封箱是在编译期间的，而反射在运行期间）。
+
+#### Array
+
+java中的数组本质也是一个对象，与一般对象相比的不同之处只是在获取Class对象以及创建对象上。
+
+若想使用`Class.forName()`方法获取一个数组类型的Class对象，需要使用以下这种方式：
+
+```java
+Class cDoubleArray = Class.forName("[D");    //相当于double[].class
+Class cStringArray = Class.forName("[[Ljava.lang.String;");   //相当于String[][].class
+```
+
+数组类型的创建与初始化则利用`java.lang.Array`对象，示例如下：
+
+```java
+//创建数组， 参数componentType为数组元素的类型，后面不定项参数的个数代表数组的维度，参数值为数组长度
+Array.newInstance(Class<?> componentType, int... dimensions);
+
+//设置数组值，array为数组对象，index为数组的下标，value为需要设置的值
+Array.set(Object array, int index, int value);
+
+//获取数组的值，array为数组对象，index为数组的下标
+Array.get(Object array, int index);
+```
 
 
 
-更多内容请参见[JAVA中的反射机制（二）]()
+##### Object转换为Map对象方法
+
+利用反射我们就可以就可以方便的实现将一个任意java对象转换为Map对象，代码示例如下：
+
+```java
+public static Map<String, Object> objectToMap(Object obj) throws Exception {
+    if(obj == null){
+        return null;
+    }
+
+    Map<String, Object> map = new HashMap<String, Object>();
+    Field[] declaredFields = obj.getClass().getDeclaredFields();
+    for (Field field : declaredFields) {
+        field.setAccessible(true);
+        map.put(field.getName(), field.get(obj));
+    }
+    return map;  
+}
+```
+
+
+
+更多内容请参见[JAVA中的反射机制（二）](https://github.com/PuTongGithub/Share/blob/master/java/JAVA中的反射机制%EF%BC%88二%EF%BC%89.md)
 
 
 
