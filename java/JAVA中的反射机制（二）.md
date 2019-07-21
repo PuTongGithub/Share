@@ -33,11 +33,17 @@
 首先创建需要被代理的目标类以及其接口：
 
 ```java
+package test.proxy;
+
 public interface Animal {
 
     void say();
     
 }
+```
+
+```java
+package test.proxy;
 
 public class Dog implements Animal {
 
@@ -52,6 +58,11 @@ public class Dog implements Animal {
 然后我们需要实现一个针对目标接口的调用处理器：
 
 ```java
+package test.proxy;
+
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Method;
+
 public class AnimalProxyImpl implements InvocationHandler {
 
     private Animal animal;
@@ -81,6 +92,15 @@ public class AnimalProxyImpl implements InvocationHandler {
 接下来针对这个目标类我们使用动态代理来完成方法调用：
 
 ```java
+package test.main;
+
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Proxy;
+
+import test.proxy.Animal;
+import test.proxy.AnimalProxyImpl;
+import test.proxy.Dog;
+
 public class ProxyMain {
 
     public static void main(String[] args) {
@@ -99,7 +119,7 @@ public class ProxyMain {
         Object proxyObject = Proxy.newProxyInstance(classLoader, classes, invocationHandler);
         
         System.out.println("通过代理类调用方法：");
-        // 将代理对象强制转换为目标类接口后调用其方法
+        // 将代理对象类型强制转换为目标类接口类型后调用其方法
         ((Animal) proxyObject).say();
     }
     
