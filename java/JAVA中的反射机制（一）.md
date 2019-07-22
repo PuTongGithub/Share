@@ -167,7 +167,7 @@ Array.get(Object array, int index);
 
 ##### Object转换为Map对象方法
 
-利用反射我们就可以就可以方便的实现将一个任意java对象转换为Map对象，代码示例如下：
+利用反射我们就可以实现一个方法，把任意java对象转换为一个Map对象了，代码示例如下：
 
 ```java
 public static Map<String, Object> objectToMap(Object obj) throws Exception {
