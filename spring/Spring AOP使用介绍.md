@@ -2,6 +2,17 @@
 
 我们经常会遇到一些可以使用面向切面编程（AOP）快捷实现的需求，如：方法耗时记录、操作日志记录、分布式锁等。Spring中提供了一个使用起来非常便捷的AOP框架供我们使用。本篇文章将梳理介绍Spring中基于注解实现AOP编程的相关内容。
 
+### 引入依赖
+
+若想要在Spring Boot中使用AOP相关内容，需要在POM文件中引入以下依赖：
+
+```xml
+<dependency>  
+	<groupId>org.springframework.boot</groupId>  
+	<artifactId>spring-boot-starter-aop</artifactId>  
+</dependency>
+```
+
 ### AOP术语
 
 本篇文章假设读者已经理解了一点AOP的基本概念，这里将直接给出一些相关术语及说明。
